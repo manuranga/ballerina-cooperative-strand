@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group 'org.ballerina.strand'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.apache.commons:commons-lang3:3.8.1'
+    testCompile 'org.testng:testng:6.13.1'
+}
+
+run {
+    mainClassName = "org.ballerina.strand.Tester"
+}
