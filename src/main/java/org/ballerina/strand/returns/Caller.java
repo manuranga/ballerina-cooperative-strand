@@ -25,7 +25,7 @@ public class Caller extends BFunction {
             case 0:
                 x = new Callee(this, 10);
                 this.nextBFunction = x;
-                watingOn = this.nextBFunction;
+                waitingOn = this.nextBFunction;
                 state++;
                 return;
             case 1:

@@ -1,14 +1,12 @@
 package org.ballerina.strand;
 
-import org.ballerina.strand.fib.Fib;
-
+import java.util.ArrayDeque;
 import java.util.Deque;
-import java.util.LinkedList;
 
 class Scheduler {
 
     static void run(BFunction entryPoint) {
-        Deque<BFunction> running = new LinkedList<>();
+        Deque<BFunction> running = new ArrayDeque<>();
         running.add(entryPoint);
         while (true) {
             BFunction fn = running.poll();
@@ -28,9 +26,12 @@ class Scheduler {
                 running.add(fn);
             }
 
-            if (fn.done && fn.caller != null && fn.caller.watingOn == fn) {
-                running.add(fn.caller);
-                fn.watingOn = null;
+            if (fn.done && fn.caller != null) {
+                if (fn.caller.waitingOn == fn) {
+                    running.add(fn.caller);
+                    fn.waitingOn = null;
+                }
+                fn.caller = null;
             }
         }
     }

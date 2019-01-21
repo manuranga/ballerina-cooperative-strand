@@ -16,7 +16,7 @@ import org.ballerina.strand.BFunction;
 
 public class Fib extends BFunction {
 
-    private long param_n;
+    private final long param_n;
     private long local_a;
     private Fib f1;
     long returns;
@@ -34,7 +34,7 @@ public class Fib extends BFunction {
                 if (param_n > 2) {
                     f1 = new Fib(this, param_n - 1);
                     nextBFunction = f1;
-                    watingOn = nextBFunction;
+                    waitingOn = nextBFunction;
                     state++;
                 } else {
                     state = 3;
@@ -43,9 +43,13 @@ public class Fib extends BFunction {
             case 1:
                 f2 = new Fib(this, param_n - 2);
                 nextBFunction = f2;
-                watingOn = nextBFunction;
+                waitingOn = nextBFunction;
+                state++;
+                return;
             case 2:
                 local_a = f1.returns + f2.returns;
+                f1 = null;
+                f2 = null;
                 state++;
                 return;
             case 3:

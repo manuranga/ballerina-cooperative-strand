@@ -6,8 +6,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import java.lang.reflect.Field;
 
 public abstract class BFunction {
-    final BFunction caller;
-    public BFunction watingOn;
+    BFunction caller;
+    protected BFunction waitingOn;
     protected BFunction nextBFunction;
     protected boolean nextBFunctionAsync;
     protected int state;

@@ -28,7 +28,7 @@ public class Printer extends BFunction {
             case 1:
                 nextBFunction = new PrintInts(this);
                 state++;
-                watingOn = nextBFunction;
+                waitingOn = nextBFunction;
                 done = true;
                 return;
             case 2:
