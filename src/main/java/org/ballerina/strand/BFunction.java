@@ -8,14 +8,12 @@ import java.lang.reflect.Field;
 public abstract class BFunction {
     BFunction caller;
     protected BFunction waitingOn;
-    protected BFunction nextBFunction;
-    protected boolean nextBFunctionAsync;
+    protected BFunction callee;
     protected int state;
     protected boolean done;
 
     public BFunction(BFunction caller) {
         this.caller = caller;
-
     }
 
     public abstract void execute();

@@ -17,8 +17,8 @@ public class FibMain extends BFunction {
         switch (state) {
             case 0:
                 f1 = new Fib(this, local_n);
-                this.nextBFunction = f1;
-                waitingOn = this.nextBFunction;
+                this.callee = f1;
+                waitingOn = this.callee;
                 state++;
                 return;
             case 1:

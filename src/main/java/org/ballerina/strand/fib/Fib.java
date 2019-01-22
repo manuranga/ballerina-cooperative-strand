@@ -33,8 +33,8 @@ public class Fib extends BFunction {
                 local_a = 1;
                 if (param_n > 2) {
                     f1 = new Fib(this, param_n - 1);
-                    nextBFunction = f1;
-                    waitingOn = nextBFunction;
+                    callee = f1;
+                    waitingOn = callee;
                     state++;
                 } else {
                     state = 3;
@@ -42,8 +42,8 @@ public class Fib extends BFunction {
                 return;
             case 1:
                 f2 = new Fib(this, param_n - 2);
-                nextBFunction = f2;
-                waitingOn = nextBFunction;
+                callee = f2;
+                waitingOn = callee;
                 state++;
                 return;
             case 2:

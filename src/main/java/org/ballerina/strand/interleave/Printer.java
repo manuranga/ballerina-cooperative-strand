@@ -21,15 +21,13 @@ public class Printer extends BFunction {
     public void execute() {
         switch (state) {
             case 0:
-                nextBFunction = new PrintLetters(this);
-                nextBFunctionAsync = true;
+                callee = new PrintLetters(this);
                 state++;
                 return;
             case 1:
-                nextBFunction = new PrintInts(this);
+                callee = new PrintInts(this);
                 state++;
-                waitingOn = nextBFunction;
-                done = true;
+                waitingOn = callee;
                 return;
             case 2:
                 state++;

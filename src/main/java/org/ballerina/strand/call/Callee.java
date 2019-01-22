@@ -1,4 +1,4 @@
-package org.ballerina.strand.returns;
+package org.ballerina.strand.call;
 
 import org.ballerina.strand.BFunction;
 

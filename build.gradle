@@ -19,5 +19,5 @@ dependencies {
 }
 
 run {
-    mainClassName = "org.ballerina.strand.Tester"
+    mainClassName = "org.ballerina.strand.Cli"
 }

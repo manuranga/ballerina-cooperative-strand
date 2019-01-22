@@ -3,9 +3,11 @@ package org.ballerina.strand;
 import org.ballerina.strand.fib.Fib;
 import org.ballerina.strand.fib.FibMain;
 
-import static org.ballerina.strand.Scheduler.run;
+import static org.ballerina.strand.EagerScheduler.run;
 
-public class Tester {
+public class Cli {
+
+
     public static void main(String[] args) {
         String cmd = args[0];
         int n = Integer.parseInt(args[1]);

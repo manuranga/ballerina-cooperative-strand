@@ -1,4 +1,4 @@
-package org.ballerina.strand.returns;
+package org.ballerina.strand.call;
 
 import org.ballerina.strand.BFunction;
 
@@ -24,12 +24,13 @@ public class Caller extends BFunction {
         switch (state) {
             case 0:
                 x = new Callee(this, 10);
-                this.nextBFunction = x;
-                waitingOn = this.nextBFunction;
+                this.callee = x;
+                waitingOn = this.callee;
                 state++;
                 return;
             case 1:
                 System.out.println(x.returns);
+                x = null;
                 state++;
                 done = true;
                 return;

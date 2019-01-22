@@ -1,9 +1,11 @@
 package org.ballerina.strand;
 
+import org.ballerina.strand.interleave.Printer;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-class Scheduler {
+public class FairScheduler {
 
     static void run(BFunction entryPoint) {
         Deque<BFunction> running = new ArrayDeque<>();
@@ -15,13 +17,12 @@ class Scheduler {
             }
 
             fn.execute();
-            if (fn.nextBFunction != null) {
-                running.add(fn.nextBFunction);
-                fn.nextBFunction = null;
-                if (fn.nextBFunctionAsync) {
+            if (fn.callee != null) {
+                running.add(fn.callee);
+                if (fn.waitingOn != fn.callee) {
                     running.add(fn);
-                    fn.nextBFunctionAsync = false;
                 }
+                fn.callee = null;
             } else if (!fn.done) {
                 running.add(fn);
             }
