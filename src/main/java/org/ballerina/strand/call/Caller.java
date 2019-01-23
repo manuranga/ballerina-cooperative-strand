@@ -15,7 +15,7 @@ public class Caller extends BFunction {
 
     private Callee x;
 
-    public Caller(BFunction caller) {
+    public Caller(BFunction caller, int arg) {
         super(caller);
     }
 

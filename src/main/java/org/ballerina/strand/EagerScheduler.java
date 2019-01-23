@@ -5,14 +5,9 @@ import org.ballerina.strand.interleave.Printer;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-class EagerScheduler {
+class EagerScheduler implements Scheduler {
 
-    public static void main(String[] args) {
-        run(new Printer(null));
-        //                run(new FibMain(null, 3));
-    }
-
-    public static void run(BFunction entryPoint) {
+    public void run(BFunction entryPoint) {
         Deque<BFunction> strandPool = new ArrayDeque<>();
         strandPool.add(entryPoint);
         while (true) {

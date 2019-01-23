@@ -14,7 +14,7 @@ import org.ballerina.strand.BFunction;
 
 public class Printer extends BFunction {
 
-    public Printer(BFunction caller) {
+    public Printer(BFunction caller, int arg) {
         super(caller);
     }
 

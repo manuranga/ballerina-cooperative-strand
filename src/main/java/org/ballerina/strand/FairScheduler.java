@@ -1,13 +1,11 @@
 package org.ballerina.strand;
 
-import org.ballerina.strand.interleave.Printer;
-
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class FairScheduler {
+public class FairScheduler implements Scheduler {
 
-    static void run(BFunction entryPoint) {
+    public void run(BFunction entryPoint) {
         Deque<BFunction> running = new ArrayDeque<>();
         running.add(entryPoint);
         while (true) {

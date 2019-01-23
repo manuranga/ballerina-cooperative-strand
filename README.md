@@ -2,22 +2,32 @@
 
 Cooperative user space thread (strand) POC for ballerina lang.
 
-## Running
+## Compile
 
 ```sh
-# run direcly
-./gradlew run --args="strand 10"
-
-
-# run from jar
-./gradlew shadowJar
-java -jar ./build/libs/bal-strand-1.0-SNAPSHOT-all.jar strand 10
+# compile jar and create dist
+./gradlew installShadowDist
 ```
 
-## CLI commands
+## CLI usage
 
-* `native` - Naive java fib implementation
-* `native-time` - Time taken to naive java fib in nano sec
-* `stand` -  Stand based single threaded fib implementation
-* `stand-time` - Time taken to stand based single threaded fib implementation in nano sec
-* `ratio` - Average (uses 200 runs) slow down ratio of strand compared to native
+```
+Usage: ./build/install/bal-strand-shadow/bin/bal-strand [-s=<schedulerType>] [-u=<useCase>] [COMMAND]
+  -s=<schedulerType>    one of: EAGER, FAIR
+                          Default: EAGER
+  -u=<useCase>          one of: FUNCTION, FIB, INTERLEAVE
+                          Default: FIB
+Commands:
+  help    Displays help information about the specified command
+  native  run native implementation
+  strand  run strand implementation
+```
+
+## Example
+
+```sh
+$ ./build/install/bal-strand-shadow/bin/bal-strand strand 32
+2178309
+t=90040820
+```
+
