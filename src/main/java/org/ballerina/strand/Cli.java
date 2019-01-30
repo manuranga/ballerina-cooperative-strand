@@ -3,6 +3,7 @@ package org.ballerina.strand;
 import org.ballerina.strand.call.Caller;
 import org.ballerina.strand.fib.Fib;
 import org.ballerina.strand.fib.FibMain;
+import org.ballerina.strand.fib.cps.CpsScheduler;
 import org.ballerina.strand.interleave.Printer;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -53,34 +54,10 @@ public class Cli implements Callable<Void> {
 
     public static void main(String[] args) {
         CommandLine.call(new Cli(), args);
-        //        List<Object> result = cmd.parseWithHandler(new CommandLine.RunAll(), args);
-
-
-        //        String cmd = args[0];
-        //        int n = Integer.parseInt(args[1]);
-        //        switch (cmd) {
-        //            case "native":
-        //                System.out.println(nativeFib(n));
-        //                return;
-        //            case "native-time":
-        //                System.out.println(measureNativeFibTime(n));
-        //                return;
-        //            case "strand-time":
-        //                System.out.println(measureStrandTime(n));
-        //                return;
-        //            case "strand":
-        //                schedulerType.instance.run(new FibMain(null, n));
-        //                return;
-        //            case "ratio":
-        //                System.out.println(jvmVsCoopRuntimeRatio(n));
-        //                return;
-        //            default:
-        //                System.out.println("Usage: <native|stand|ratio|native-time|stand-time> <n>");
-        //        }
     }
 
     @Command(name = "strand", description = "run strand implementation")
-    void runStrand(@Parameters(description = "number") int arg) {
+    void runStrand(@Parameters(description = "number") int arg) throws Throwable {
         BFunction entryPoint = createEntryPoint(arg);
         long t = measureStrandTime(entryPoint);
         System.err.println("t=" + t);
@@ -91,6 +68,19 @@ public class Cli implements Callable<Void> {
         BFunction entryPoint = createEntryPoint(arg);
         long t = measureNativeTime(arg);
         System.err.println("t=" + t);
+    }
+
+    @Command(name = "stack", description = "run java stack growing implementation")
+    void runStack(@Parameters(description = "number") int arg) {
+        if (useCase != FIB) {
+            throw new IllegalArgumentException("only fib is supported for this scheduler");
+        }
+        long startTime;
+        long endTime;
+        startTime = System.nanoTime();
+        CpsScheduler.run(arg);
+        endTime = System.nanoTime();
+        System.err.println("t=" + (endTime - startTime));
     }
 
     private long measureNativeTime(int arg) {
